@@ -54,7 +54,7 @@ extern ExterPort_t gStartPort;
 
 void ExterPort_HWInit(void);
 void ExterPortObject_Init(ExterPortObject* pobj, ExterPort_t exterPort);
-void KeyObject_Init(KeyObject* pobj, ExterPort_t exterPort);
+void KeyObject_Init(KeyObject* pobj, ExterPort_t exterPort, uint16_t longpressSetTime);
 void KeyScanInput(KeyObject* pobj);
 
 #endif

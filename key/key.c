@@ -1,6 +1,5 @@
 #include "key.h"
 
-#define KEYLONGPRESSTIME       1300     //长按键延时
 #define SAMPLINGTIMES           1      //采样次数
 #define MINQUALIFIEDTIMES       1      //采样合格次数
 
@@ -96,12 +95,12 @@ void ExterPortObject_Init(ExterPortObject* pobj, ExterPort_t port)
 /// \param        pobj
 /// \param        port
 /// \return       void
-void KeyObject_Init(KeyObject* pobj, ExterPort_t port)
+void KeyObject_Init(KeyObject* pobj, ExterPort_t port, uint16_t longpressSetTime)
 {
     ExterPortObject_Init(&(pobj->exterPortObject), port);
     pobj->state = nopress;
     pobj->pressTimer = 0;
-    pobj->longPressDelay = KEYLONGPRESSTIME;
+    pobj->longPressDelay = longpressSetTime;
 }
 
 /// \brief        KeyScanInput
