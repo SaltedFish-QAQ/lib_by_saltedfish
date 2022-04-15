@@ -50,3 +50,34 @@ uint16_t MS1100A0_ReadByte(void)
     return temp;
 }
 
+uint8_t ADC_MS1100_Init(void)
+{
+    //使用缺省ms1100配置，PGA为1，16位ADC，扫描模式
+    MS1100A0_Write(0x0C);
+
+    return 0;
+}
+
+uint8_t ADC_MS1100_GetValue(uint16_t* ADCValuePtr, uint8_t avgTimes)
+{
+    uint32_t tempADCValue = 0;
+    avgTimes = avgTimes + 1;
+
+    *ADCValuePtr = 0;
+
+    for (int i = 0; i < avgTimes; i++)
+    {
+        while (*ADCValuePtr == 0)
+        {
+            *ADCValuePtr = MS1100A0_ReadByte();
+        }
+
+        tempADCValue = tempADCValue + *ADCValuePtr;
+        *ADCValuePtr = 0;
+    }
+    
+    tempADCValue = tempADCValue / avgTimes;
+    *ADCValuePtr = (tempADCValue * 2048) / 32767;
+
+    return 0;
+}
